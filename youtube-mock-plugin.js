@@ -6,8 +6,59 @@ const STATIC_VIDEOS = [
   { videoId: "mno345", title: "Web Performance on Mobile Devices" },
 ];
 
+const ERROR_MESSAGES = {
+  400: {
+    code: 400,
+    status: "BAD_REQUEST",
+    message: "Invalid request",
+  },
+  403: {
+    code: 403,
+    status: "PERMISSION_DENIED",
+    message: "API quota exceeded",
+  },
+  404: {
+    code: 404,
+    status: "NOT_FOUND",
+    message: "Resource not found",
+  },
+  500: {
+    code: 500,
+    status: "INTERNAL_ERROR",
+    message: "Internal server error",
+  },
+  502: {
+    code: 502,
+    status: "BAD_GATEWAY",
+    message: "Bad gateway",
+  },
+  503: {
+    code: 503,
+    status: "SERVICE_UNAVAILABLE",
+    message: "Service unavailable",
+  },
+};
+
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateErrorResponse(code) {
+  const error = ERROR_MESSAGES[code] ?? ERROR_MESSAGES[500];
+  return {
+    error: {
+      code: error.code,
+      status: error.status,
+      message: error.message,
+      errors: [
+        {
+          message: error.message,
+          domain: "youtube.quota",
+          reason: error.status,
+        },
+      ],
+    },
+  };
 }
 
 function generateMockSearchResponse(query, order) {
@@ -79,12 +130,31 @@ function generateMockStatsResponse(ids) {
   };
 }
 
-export function youtubeMockPlugin() {
+export function youtubeMockPlugin(env) {
+  const useMock = env.VITE_USE_MOCK === "true";
+  const useError = env.VITE_MOCK_ERROR === "true";
+  const errorCode = parseInt(env.VITE_MOCK_ERROR_CODE ?? "500");
+  const errorRate = parseFloat(env.VITE_MOCK_ERROR_RATE ?? "0.3");
+
   return {
     name: "youtube-mock-plugin",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (!process.env.VITE_USE_MOCK) return next();
+        if (!useMock) return next();
+
+        const isYoutubeRequest =
+          req.url.startsWith("/api/youtube/search") ||
+          req.url.startsWith("/api/youtube/videos");
+
+        if (!isYoutubeRequest) return next();
+
+        // simulate error based on error rate
+        if (useError && Math.random() < errorRate) {
+          res.setHeader("Content-Type", "application/json");
+          res.statusCode = errorCode;
+          res.end(JSON.stringify(generateErrorResponse(errorCode)));
+          return;
+        }
 
         if (req.url.startsWith("/api/youtube/search")) {
           const url = new URL(req.url, "http://localhost");
