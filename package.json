@@ -1,13 +1,13 @@
 {
   "name": "jh-youtube-search",
   "version": "1.0.0",
-  "description": "",
+  "description": "Javascript project for Jack Henry YouTube Search challenge",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Patrick Carver",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
