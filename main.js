@@ -9,6 +9,15 @@ tabs.tabs = [
   { label: "Bookmarks", value: "bookmarks" },
 ];
 
+const videoCard = document.querySelector("jh-video-card");
+videoCard.video = {
+  videoId: "what",
+  title: "hello there",
+  description: "this is a description",
+  thumbnail: "https://i.ytimg.com/vi/hHt3F5mL7Tc/mqdefault.jpg",
+  commentCount: 123,
+};
+
 /*
 document.getElementById("search-btn").addEventListener("click", async () => {
   const params = new URLSearchParams({

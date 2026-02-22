@@ -1,6 +1,31 @@
 import { LitElement, html, css, nothing } from "lit";
 
 export class JhVideoCard extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+    }
+
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      margin-bottom: 0.5rem;
+    }
+
+    thumbnail-holder {
+      flex-shrink: 0;
+    }
+
+    #video-title,
+    #video-description,
+    #comment-count {
+      flex: 1;
+    }
+  `;
+
   static properties = {
     video: { type: Object },
     allowSave: { type: Boolean },
