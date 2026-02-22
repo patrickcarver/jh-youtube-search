@@ -1,8 +1,9 @@
-import { config } from "./config.js";
+import { config } from "./src/config.js";
 
 const mockModeMessage = config.useMock ? "MOCK MODE ON" : "MOCK MODE OFF";
 document.getElementById("mock-mode").textContent = mockModeMessage;
 
+/*
 document.getElementById("search-btn").addEventListener("click", async () => {
   const params = new URLSearchParams({
     part: "snippet",
@@ -16,4 +17,4 @@ document.getElementById("search-btn").addEventListener("click", async () => {
   const response = await fetch(`/api/youtube/search?${params}`);
   const data = await response.json();
   document.getElementById("output").textContent = JSON.stringify(data, null, 2);
-});
+  */
