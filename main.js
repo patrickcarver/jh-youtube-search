@@ -1,7 +1,24 @@
 import { config } from "./src/config.js";
+import { fetchWithRetry } from "./src/fetch-with-retry.js";
 
 const mockModeMessage = config.useMock ? "MOCK MODE ON" : "MOCK MODE OFF";
 document.getElementById("mock-mode").textContent = mockModeMessage;
+
+const params = new URLSearchParams({
+  part: "snippet",
+  q: "javascript",
+  order: "relevance",
+  type: "video",
+  maxResults: 12,
+  key: config.apiKey,
+});
+
+try {
+  const data = await fetchWithRetry(`${config.apiBaseUrl}/search?${params}`);
+  console.log(data);
+} catch (error) {
+  console.error(error.message);
+}
 
 const tabs = document.querySelector("jh-tabs");
 tabs.tabs = [
