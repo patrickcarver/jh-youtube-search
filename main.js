@@ -1,4 +1,7 @@
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+import { config } from "./config.js";
+
+const mockModeMessage = config.useMock ? "MOCK MODE ON" : "MOCK MODE OFF";
+document.getElementById("mock-mode").textContent = mockModeMessage;
 
 document.getElementById("search-btn").addEventListener("click", async () => {
   const params = new URLSearchParams({
@@ -7,7 +10,7 @@ document.getElementById("search-btn").addEventListener("click", async () => {
     order: "relevance",
     type: "video",
     maxResults: 12,
-    key: API_KEY,
+    key: config.apiKey,
   });
 
   const response = await fetch(`/api/youtube/search?${params}`);
