@@ -3,6 +3,12 @@ import { config } from "./src/config.js";
 const mockModeMessage = config.useMock ? "MOCK MODE ON" : "MOCK MODE OFF";
 document.getElementById("mock-mode").textContent = mockModeMessage;
 
+const tabs = document.querySelector("jh-tabs");
+tabs.tabs = [
+  { label: "Search Results", value: "search" },
+  { label: "Bookmarks", value: "bookmarks" },
+];
+
 /*
 document.getElementById("search-btn").addEventListener("click", async () => {
   const params = new URLSearchParams({
