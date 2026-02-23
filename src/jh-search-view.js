@@ -33,6 +33,7 @@ export class JhSearchView extends LitElement {
   }
 
   #handleVideoDeleted(event) {
+    console.log("video-deleted fired", event.detail);
     const { videoId } = event.detail;
     this.#bookmarksController.remove(videoId);
   }

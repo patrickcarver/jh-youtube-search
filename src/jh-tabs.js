@@ -55,7 +55,7 @@ export class JhTabs extends LitElement {
   #handleButtonClick(tabValue) {
     this.activeTab = tabValue;
     this.dispatchEvent(
-      new CustomEvent("tab-change", {
+      new CustomEvent("tab-changed", {
         detail: {
           tabValue,
         },

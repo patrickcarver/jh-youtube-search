@@ -62,6 +62,7 @@ export class SearchController {
   async search(query, order) {
     try {
       this.#loading = true;
+      console.log("loading set to true");
       this.#error = null;
       this.#host.requestUpdate();
 

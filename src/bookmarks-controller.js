@@ -28,10 +28,7 @@ export class BookmarksController {
   }
 
   remove(videoId) {
-    this.#bookmarks.splice(
-      this.#bookmarks.findIndex((bookmark) => bookmark.videoId === videoId),
-      1,
-    );
+    this.#bookmarks = this.#bookmarks.filter((b) => b.videoId !== videoId);
     this.#repository.delete(videoId);
     this.#host.requestUpdate();
   }

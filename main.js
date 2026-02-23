@@ -4,6 +4,7 @@ import { fetchWithRetry } from "./src/fetch-with-retry.js";
 const mockModeMessage = config.useMock ? "MOCK MODE ON" : "MOCK MODE OFF";
 document.getElementById("mock-mode").textContent = mockModeMessage;
 
+/*
 const params = new URLSearchParams({
   part: "snippet",
   q: "javascript",
@@ -34,7 +35,7 @@ videoCard.video = {
   thumbnail: "https://i.ytimg.com/vi/hHt3F5mL7Tc/mqdefault.jpg",
   commentCount: 123,
 };
-
+*/
 /*
 document.getElementById("search-btn").addEventListener("click", async () => {
   const params = new URLSearchParams({

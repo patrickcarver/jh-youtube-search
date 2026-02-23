@@ -2,6 +2,28 @@ import { LitElement, html, css } from "lit";
 import "./jh-video-card.js";
 
 export class JhVideoGrid extends LitElement {
+  static styles = css`
+    .skeleton-card {
+      width: 100%;
+      height: 120px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  `;
+
   static properties = {
     videos: { type: Array },
     allowSave: { type: Boolean },
@@ -21,6 +43,7 @@ export class JhVideoGrid extends LitElement {
 
   render() {
     if (this.loading) {
+      console.log("rendering skeletons");
       return html`
         ${Array.from(
           { length: 12 },
