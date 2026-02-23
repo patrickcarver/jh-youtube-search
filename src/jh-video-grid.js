@@ -43,7 +43,6 @@ export class JhVideoGrid extends LitElement {
 
   render() {
     if (this.loading) {
-      console.log("rendering skeletons");
       return html`
         ${Array.from(
           { length: 12 },
