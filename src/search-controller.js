@@ -26,6 +26,10 @@ export class SearchController {
     return this.#error;
   }
 
+  findVideo(videoId) {
+    return this.#results.find((v) => v.videoId === videoId);
+  }
+
   async #fetchVideos(query, order, maxResults) {
     const videoParams = new URLSearchParams({
       part: "snippet",
