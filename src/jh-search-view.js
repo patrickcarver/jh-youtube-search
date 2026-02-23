@@ -71,9 +71,7 @@ export class JhSearchView extends LitElement {
         @video-saved=${this.#handleVideoSaved}
         @video-deleted=${this.#handleVideoDeleted}
       >
-        <jh-search-input
-          ?hasResults=${this.#searchController.results.length > 0}
-        ></jh-search-input>
+        <jh-search-input ?hasResults=${this.#searchController.results.length > 0}></jh-search-input>
         <jh-tabs .tabs=${this.#tabs}></jh-tabs>
 
         ${this.#activeTab === "search"
@@ -84,10 +82,7 @@ export class JhSearchView extends LitElement {
             ></jh-video-grid>`
           : nothing}
         ${this.#activeTab === "bookmarks"
-          ? html` <jh-video-grid
-              .videos=${this.#bookmarksController.bookmarks}
-              allowDelete
-            ></jh-video-grid>`
+          ? html` <jh-video-grid .videos=${this.#bookmarksController.bookmarks} allowDelete></jh-video-grid>`
           : nothing}
       </div>
     `;

@@ -38,11 +38,6 @@ from https://www.canva.com/colors/color-palettes/after-the-rain/
     --theme-surface: #1a3239; /* navy blue - darker cards on dark bg */
     --theme-text-primary: #e7d5c2; /* champagne - light text on dark bg */
     --theme-accent: #1181c8; /* blue grotto - bright accent */
-    --theme-input-background: rgba(
-        255,
-        255,
-        255,
-        0.1
-    ); /* white with transparency */
+    --theme-input-background: rgba(255, 255, 255, 0.1); /* white with transparency */
     font-family: sans-serif;
 }

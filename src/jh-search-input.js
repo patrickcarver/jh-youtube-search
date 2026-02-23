@@ -4,10 +4,7 @@ export class JhSearchInput extends LitElement {
   static styles = css`
     :host {
       --jh-focus-glow: var(--theme-accent, #319905);
-      --jh-input-background: var(
-        --theme-input-background,
-        rgba(255, 255, 255, 0.1)
-      );
+      --jh-input-background: var(--theme-input-background, rgba(255, 255, 255, 0.1));
     }
 
     .container {
@@ -48,8 +45,7 @@ export class JhSearchInput extends LitElement {
     #search-text:focus {
       outline: none;
       border-color: var(--jh-accent);
-      box-shadow: 0 0 0 3px
-        color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
 
     #search-button {
@@ -70,8 +66,7 @@ export class JhSearchInput extends LitElement {
 
     #search-button:focus {
       outline: none;
-      box-shadow: 0 0 0 3px
-        color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
   `;
 
@@ -130,26 +125,14 @@ export class JhSearchInput extends LitElement {
   render() {
     return html` <div class="container">
       <label for="search-text">Search</label>
-      <input
-        @keydown="${this.#handleKeyDown}"
-        type="text"
-        id="search-text"
-        name="search-text"
-        autocomplete="off"
-      />
+      <input @keydown="${this.#handleKeyDown}" type="text" id="search-text" name="search-text" autocomplete="off" />
       <label for="sort-order">Sort by</label>
-      <select
-        @change="${this.#handleSortChange}"
-        id="sort-order"
-        name="sort-order"
-      >
+      <select @change="${this.#handleSortChange}" id="sort-order" name="sort-order">
         <option value="relevance" selected>Relevance</option>
         <option value="date">Newest First</option>
         <option value="rating">Rating</option>
       </select>
-      <button @click="${this.#handleSearch}" type="button" id="search-button">
-        Search
-      </button>
+      <button @click="${this.#handleSearch}" type="button" id="search-button">Search</button>
     </div>`;
   }
 }
