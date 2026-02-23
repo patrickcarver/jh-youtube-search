@@ -1,5 +1,5 @@
 /*
-"After the Rain" color palette
+based on "After the Rain" color palette
 from https://www.canva.com/colors/color-palettes/after-the-rain/
 */
 
@@ -12,7 +12,7 @@ from https://www.canva.com/colors/color-palettes/after-the-rain/
 @property --theme-surface {
     syntax: "<color>";
     inherits: true;
-    initial-value: #1a3239;
+    initial-value: #101a25;
 }
 
 @property --theme-text-primary {
@@ -35,7 +35,7 @@ from https://www.canva.com/colors/color-palettes/after-the-rain/
 
 :root {
     --theme-background: #213349; /* dark blue */
-    --theme-surface: #1a3239; /* navy blue - darker cards on dark bg */
+    --theme-surface: #101a25; /* dark navy blue - darker cards on dark bg */
     --theme-text-primary: #e7d5c2; /* champagne - light text on dark bg */
     --theme-accent: #1181c8; /* blue grotto - bright accent */
     --theme-input-background: rgba(255, 255, 255, 0.1); /* white with transparency */

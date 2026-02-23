@@ -9,7 +9,6 @@ export class JhVideoCard extends LitElement {
     div {
       display: flex;
       flex-direction: row;
-      gap: 1rem;
       padding: 0.5rem;
       border: 1px solid #ccc;
       margin-bottom: 0.5rem;
@@ -64,37 +63,19 @@ export class JhVideoCard extends LitElement {
 
     return html` <div>
       <div id="thumbnail-holder">
-        <img
-          src="${this.video.thumbnail}"
-          alt="${this.video.title}"
-          loading="lazy"
-          decoding="async"
-          width="320"
-          height="180"
-        />
+        <img src="${this.video.thumbnail}" alt="${this.video.title}" loading="lazy" decoding="async" width="320" height="180" />
       </div>
       <div id="video-title">
-        <a
-          href="https://www.youtube.com/watch?v=${this.video.videoId}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.youtube.com/watch?v=${this.video.videoId}" target="_blank" rel="noopener noreferrer">
           ${this.video.title}
         </a>
       </div>
       <div id="video-description">${this.video.description}</div>
-      <div id="comment-count">
-        ${this.video.commentCount ?? "Comments disabled"}
-      </div>
+      <div id="comment-count">${this.video.commentCount ?? "Comments disabled"}</div>
       ${this.allowSave
         ? html`
             <div id="save-to-bookmarks">
-              <button
-                @click="${() => this.#handleSave(this.video.videoId)}"
-                type="button"
-                id="save-button"
-                name="save-button"
-              >
+              <button @click="${() => this.#handleSave(this.video.videoId)}" type="button" id="save-button" name="save-button">
                 Save
               </button>
             </div>

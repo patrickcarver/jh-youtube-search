@@ -1,6 +1,44 @@
 import { LitElement, html, css } from "lit";
 
 export class JhTabs extends LitElement {
+  static styles = css`
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      border-radius: 12px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px 8px 0 0;
+      font-size: 1rem;
+      color: var(--jh-text-primary);
+      background: var(--jh-surface);
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--jh-accent);
+      /* clip-path: inset(-4px -4px 0 -4px); */
+    }
+
+    .active-tab {
+      opacity: 1;
+    }
+
+    .inactive-tab {
+      opacity: 0.8;
+    }
+  `;
+
   static properties = {
     tabs: { type: Array },
     activeTab: { type: String },
@@ -21,9 +59,7 @@ export class JhTabs extends LitElement {
   }
 
   async #handleTabKeyDown(event) {
-    const currentIndex = this.tabs.findIndex(
-      (tab) => tab.value === this.activeTab,
-    );
+    const currentIndex = this.tabs.findIndex((tab) => tab.value === this.activeTab);
     let newIndex = null;
 
     switch (event.key) {
@@ -56,9 +92,7 @@ export class JhTabs extends LitElement {
     this.activeTab = tabValue;
     this.dispatchEvent(
       new CustomEvent("tab-changed", {
-        detail: {
-          tabValue,
-        },
+        detail: { tabValue },
         bubbles: true,
         composed: true,
       }),
@@ -67,11 +101,7 @@ export class JhTabs extends LitElement {
 
   render() {
     return html`
-      <div
-        @keydown="${this.#handleTabKeyDown}"
-        role="tablist"
-        aria-label="Content tabs"
-      >
+      <div class="container" @keydown="${this.#handleTabKeyDown}" role="tablist" aria-label="Content tabs">
         ${this.tabs.map(
           (tab) => html`
             <button
@@ -80,6 +110,7 @@ export class JhTabs extends LitElement {
               role="tab"
               aria-selected="${tab.value === this.activeTab}"
               tabindex="${tab.value === this.activeTab ? 0 : -1}"
+              class="${tab.value === this.activeTab ? "active-tab" : "inactive-tab"}"
             >
               ${tab.label}
             </button>

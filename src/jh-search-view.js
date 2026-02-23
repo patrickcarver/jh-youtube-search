@@ -10,7 +10,7 @@ export class JhSearchView extends LitElement {
   static styles = css`
     :host {
       --jh-background: var(--theme-background, #cddce3); /* baby blue */
-      --jh-surface: var(--theme-surface, #0a4b39); /* forest green */
+      --jh-surface: var(--theme-surface, #0a4b39);
       --jh-text-primary: var(--theme-text-primary, #14181a); /* ebony */
       --jh-accent: var(--theme-accent, #319905); /* green */
       font-family:
@@ -29,6 +29,9 @@ export class JhSearchView extends LitElement {
       max-width: 1200px;
       margin: 0 auto;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
   `;
 

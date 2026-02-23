@@ -43,12 +43,7 @@ export class JhVideoGrid extends LitElement {
 
   render() {
     if (this.loading) {
-      return html`
-        ${Array.from(
-          { length: 12 },
-          () => html`<div class="skeleton-card"></div>`,
-        )}
-      `;
+      return html` ${Array.from({ length: 12 }, () => html`<div class="skeleton-card"></div>`)} `;
     }
 
     if (this.videos.length === 0) {
@@ -59,11 +54,7 @@ export class JhVideoGrid extends LitElement {
       <div id="video-grid">
         ${this.videos.map(
           (video) => html`
-            <jh-video-card
-              .video=${video}
-              ?allowSave=${this.allowSave}
-              ?allowDelete=${this.allowDelete}
-            ></jh-video-card>
+            <jh-video-card .video=${video} ?allowSave=${this.allowSave} ?allowDelete=${this.allowDelete}></jh-video-card>
           `,
         )}
       </div>
