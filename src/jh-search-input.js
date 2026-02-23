@@ -5,6 +5,8 @@ export class JhSearchInput extends LitElement {
     :host {
       --jh-focus-glow: var(--theme-accent, #319905);
       --jh-input-background: var(--theme-input-background, rgba(255, 255, 255, 0.1));
+      display: block;
+      box-sizing: border-box;
     }
 
     .container {
@@ -12,17 +14,18 @@ export class JhSearchInput extends LitElement {
       align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
-      padding: 0.75rem;
       border-radius: 12px;
       margin: 0 auto;
       box-sizing: border-box;
       background: var(--jh-surface);
       border: 2px solid var(--jh-accent);
+      min-width: 0;
+      padding: 0.75rem 1.5rem 0.75rem 0.75rem;
     }
 
     #search-text {
       flex: 1;
-      min-width: 200px;
+      min-width: 100px;
       max-width: 300px;
     }
 
@@ -30,6 +33,8 @@ export class JhSearchInput extends LitElement {
     #search-text,
     #search-button {
       border-radius: 6px;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     #sort-order,
@@ -53,6 +58,7 @@ export class JhSearchInput extends LitElement {
       background: var(--jh-accent);
       color: var(--jh-text-primary);
       padding: 0.4rem 1rem;
+      flex-shrink: 0;
     }
 
     #search-button:hover {
