@@ -7,6 +7,31 @@ import "./jh-tabs.js";
 import "./jh-video-grid.js";
 
 export class JhSearchView extends LitElement {
+  static styles = css`
+    :host {
+      --jh-background: var(--theme-background, #cddce3); /* baby blue */
+      --jh-surface: var(--theme-surface, #0a4b39); /* forest green */
+      --jh-text-primary: var(--theme-text-primary, #14181a); /* ebony */
+      --jh-accent: var(--theme-accent, #319905); /* green */
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+      font-size: 1.2rem;
+      color: var(--jh-text-primary);
+    }
+
+    .container {
+      background: var(--jh-background);
+      padding: 0.75rem;
+      border-radius: 12px;
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+  `;
+
   #activeTab = "search";
   #tabs = [
     { label: "Search Results", value: "search" },
@@ -33,7 +58,6 @@ export class JhSearchView extends LitElement {
   }
 
   #handleVideoDeleted(event) {
-    console.log("video-deleted fired", event.detail);
     const { videoId } = event.detail;
     this.#bookmarksController.remove(videoId);
   }
@@ -41,6 +65,7 @@ export class JhSearchView extends LitElement {
   render() {
     return html`
       <div
+        class="container"
         @search-requested=${this.#handleSearchRequested}
         @tab-changed=${this.#handleTabChanged}
         @video-saved=${this.#handleVideoSaved}
