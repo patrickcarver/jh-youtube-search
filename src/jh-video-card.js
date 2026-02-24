@@ -17,7 +17,15 @@ export class JhVideoCard extends LitElement {
       gap: 0.5rem;
     }
 
+    #thumbnail-holder {
+      width: 100%;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+      background: var(--jh-skeleton);
+    }
+
     #thumbnail-holder img {
+      display: block;
       width: 100%;
       height: auto;
       border-radius: 8px 8px 0 0;

@@ -47,6 +47,12 @@ export class JhVideoGrid extends LitElement {
       background: color-mix(in srgb, var(--jh-accent) 60%, black);
     }
 
+    button:focus {
+      outline: 2px solid var(--jh-text-primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-accent) 30%, transparent);
+    }
+
     button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -173,7 +179,7 @@ export class JhVideoGrid extends LitElement {
     }
 
     return html`
-      <div id="video-grid" class="container">
+      <div id="video-grid" class="container" aria-live="polite" aria-atomic="false" ?aria-busy=${this.loadingMore}>
         ${this.videos.map(
           (video) => html`
             <jh-video-card
@@ -187,8 +193,14 @@ export class JhVideoGrid extends LitElement {
       </div>
       ${this.hasMore
         ? html`
-            <button id="load-more-button" type="button" ?disabled=${this.loadingMore} @click=${this.#handleLoadMore}>
-              ${this.loadingMore ? "Loading" : "Load"}
+            <button
+              id="load-more-button"
+              type="button"
+              ?disabled=${this.loadingMore}
+              @click=${this.#handleLoadMore}
+              aria-label="Load more results"
+            >
+              ${this.loadingMore ? "Loading..." : "Load More"}
             </button>
           `
         : nothing}

@@ -93,7 +93,13 @@ export class SearchController {
       return toVideoModel(videoItem, statItem);
     });
 
-    this.#results = this.#results.concat(latestResults);
+    // In testing, I observed that the YouTube API would return 25 results *some of the time*
+    // instead of the requested 12. I looked in the Network tool in Chrome. I had sent a maxResult of 12
+    // and got back 25 items.
+    // So that we are always consistent, we always make sure to have no more than 12.
+    const firstByMaxResults = latestResults.slice(0, this.#maxResults);
+
+    this.#results = this.#results.concat(firstByMaxResults);
   }
 
   async search(query, order) {
