@@ -4,7 +4,6 @@ function toVideoModel(searchItem, statsItem) {
     title: searchItem.snippet.title,
     description: searchItem.snippet.description,
     thumbnail: searchItem.snippet.thumbnails.medium.url,
-    date: searchItem.snippet.publishedAt,
     commentCount: statsItem?.statistics?.commentCount ?? null,
   };
 }
