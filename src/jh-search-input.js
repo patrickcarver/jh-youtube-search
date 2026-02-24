@@ -59,6 +59,7 @@ export class JhSearchInput extends LitElement {
       color: var(--jh-text-primary);
       padding: 0.4rem 1rem;
       flex-shrink: 0;
+      border: 1px solid color-mix(in srgb, var(--jh-accent) 70%, white);
     }
 
     #search-button:hover {

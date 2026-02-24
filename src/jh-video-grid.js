@@ -47,6 +47,7 @@ export class JhVideoGrid extends LitElement {
     allowDelete: { type: Boolean },
     view: { type: String },
     loading: { type: Boolean },
+    bookmarkedIds: { type: Array },
   };
 
   constructor() {
@@ -56,6 +57,7 @@ export class JhVideoGrid extends LitElement {
     this.allowDelete = false;
     this.view = "grid";
     this.loading = false;
+    this.bookmarkedIds = [];
   }
 
   render() {
@@ -73,7 +75,12 @@ export class JhVideoGrid extends LitElement {
       <div id="video-grid" class="container">
         ${this.videos.map(
           (video) => html`
-            <jh-video-card .video=${video} ?allowSave=${this.allowSave} ?allowDelete=${this.allowDelete}></jh-video-card>
+            <jh-video-card
+              .video=${video}
+              ?allowSave=${this.allowSave}
+              ?allowDelete=${this.allowDelete}
+              ?isBookmarked=${this.bookmarkedIds.includes(video.videoId)}
+            ></jh-video-card>
           `,
         )}
       </div>

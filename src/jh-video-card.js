@@ -3,28 +3,84 @@ import { LitElement, html, css, nothing } from "lit";
 export class JhVideoCard extends LitElement {
   static styles = css`
     :host {
-      display: block;
+      --jh-card-background: var(--theme-input-background, rgba(255, 255, 255, 0.1));
     }
 
     .container {
-    }
-
-    div {
+      background: var(--jh-card-background);
+      border-radius: 12px;
+      box-sizing: border-box;
+      padding: 0.75rem;
       display: flex;
-      flex-direction: row;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      margin-bottom: 0.5rem;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
-    #thumbnail-holder {
+    #thumbnail-holder img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    #video-description {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: calc(3 * 1.5em);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:link {
+      color: var(--jh-accent);
+    }
+
+    a:visited {
+      color: color-mix(in srgb, var(--jh-accent) 70%, black);
+    }
+
+    a:hover {
+      color: var(--jh-text-primary);
+      text-decoration: underline;
+    }
+
+    a:active {
+      color: color-mix(in srgb, var(--jh-accent) 70%, white);
+    }
+
+    button {
+      border-radius: 6px;
+      min-width: 0;
+      font-size: 1rem;
+      background: var(--jh-accent);
+      color: var(--jh-text-primary);
+      padding: 0.4rem 1rem;
       flex-shrink: 0;
+      border: 1px solid color-mix(in srgb, var(--jh-accent) 70%, white);
     }
 
-    #video-title,
-    #video-description,
-    #comment-count {
-      flex: 1;
+    button:hover {
+      background: color-mix(in srgb, var(--jh-accent) 80%, black);
+      cursor: pointer;
+    }
+
+    button:active {
+      background: color-mix(in srgb, var(--jh-accent) 60%, black);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    a:focus,
+    button:focus {
+      outline: 2px solid var(--jh-text-primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
   `;
 
@@ -32,6 +88,7 @@ export class JhVideoCard extends LitElement {
     video: { type: Object },
     allowSave: { type: Boolean },
     allowDelete: { type: Boolean },
+    isBookmarked: { type: Boolean },
   };
 
   constructor() {
@@ -39,6 +96,7 @@ export class JhVideoCard extends LitElement {
     this.video = null;
     this.allowSave = false;
     this.allowDelete = false;
+    this.isBookmarked = false;
   }
 
   #handleSave(videoId) {
@@ -64,7 +122,7 @@ export class JhVideoCard extends LitElement {
   render() {
     if (!this.video) return nothing;
 
-    return html` <div class=".container">
+    return html` <div class="container">
       <div id="thumbnail-holder">
         <img src="${this.video.thumbnail}" alt="${this.video.title}" loading="lazy" decoding="async" width="320" height="180" />
       </div>
@@ -80,8 +138,14 @@ export class JhVideoCard extends LitElement {
       ${this.allowSave
         ? html`
             <div id="save-to-bookmarks">
-              <button @click="${() => this.#handleSave(this.video.videoId)}" type="button" id="save-button" name="save-button">
-                Save
+              <button
+                ?disabled=${this.isBookmarked}
+                @click="${() => this.#handleSave(this.video.videoId)}"
+                type="button"
+                id="save-button"
+                name="save-button"
+              >
+                ${this.isBookmarked ? "Saved" : "Save"}
               </button>
             </div>
           `

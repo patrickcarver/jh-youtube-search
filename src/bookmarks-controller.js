@@ -20,6 +20,10 @@ export class BookmarksController {
     return this.#bookmarks;
   }
 
+  get bookmarkedVideoIds() {
+    return this.bookmarks.map((b) => b.videoId);
+  }
+
   add(video) {
     if (this.#bookmarks.some((b) => b.videoId === video.videoId)) return;
     this.#bookmarks.push(video);

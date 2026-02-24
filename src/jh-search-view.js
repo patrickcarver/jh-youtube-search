@@ -88,6 +88,7 @@ export class JhSearchView extends LitElement {
               .videos=${this.#searchController.results}
               allowSave
               ?loading=${this.#searchController.loading}
+              .bookmarkedIds=${this.#bookmarksController.bookmarkedVideoIds}
             ></jh-video-grid>`
           : nothing}
         ${this.#activeTab === "bookmarks"
