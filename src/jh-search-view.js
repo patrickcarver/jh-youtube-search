@@ -27,7 +27,6 @@ export class JhSearchView extends LitElement {
       background: var(--jh-background);
       padding: 0.75rem;
       border-radius: 12px;
-      min-height: 100vh;
       max-width: 1200px;
       margin: 0 auto;
       box-sizing: border-box;

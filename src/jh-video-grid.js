@@ -112,7 +112,7 @@ export class JhVideoGrid extends LitElement {
     if (this.loading) {
       return html` <div class="skeleton-grid" aria-busy="true" aria-live="polite">
         ${Array.from(
-          { length: 3 },
+          { length: 12 },
           () => html`
             <div class="container skeleton-card">
               <div class="skeleton-thumbnail"></div>
