@@ -192,8 +192,13 @@ export class JhVideoGrid extends LitElement {
           `,
         )}
       </div>
+
       ${this.loadingMore
-        ? html` <div class="skeleton-grid">${Array.from({ length: 3 }, () => this.#renderSkeletonCard())}</div> `
+        ? html`
+            <div class="skeleton-grid" aria-busy="true" aria-live="polite">
+              ${Array.from({ length: 3 }, () => this.#renderSkeletonCard())}
+            </div>
+          `
         : nothing}
       ${this.hasMore
         ? html`
