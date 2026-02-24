@@ -127,6 +127,11 @@ export class JhVideoCard extends LitElement {
     this.isBookmarked = false;
   }
 
+  #formatCommentCount(count) {
+    if (count == null) return "Comments disabled";
+    return `${count} ${count === "1" ? "comment" : "comments"}`;
+  }
+
   #handleSave(videoId) {
     this.dispatchEvent(
       new CustomEvent("video-saved", {
@@ -160,9 +165,7 @@ export class JhVideoCard extends LitElement {
         </a>
       </div>
       <div id="video-description">${this.video.description}</div>
-      <div id="comment-count" aria-label="Comment count">
-        ${this.video.commentCount != null ? `${this.video.commentCount} comments` : "Comments disabled"}
-      </div>
+      <div id="comment-count" aria-label="Comment count">${this.#formatCommentCount(this.video.commentCount)}</div>
       ${this.allowSave
         ? html`
             <div id="save-to-bookmarks">
