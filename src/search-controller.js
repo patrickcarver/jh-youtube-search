@@ -113,6 +113,7 @@ export class SearchController {
   async loadMore() {
     try {
       this.#loadingMore = true;
+      this.#host.requestUpdate();
 
       const { items: videoItems, nextPageToken } = await this.#fetchVideos(
         this.#query,

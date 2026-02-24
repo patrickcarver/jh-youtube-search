@@ -25,6 +25,33 @@ export class JhVideoGrid extends LitElement {
       padding-left: 1.25rem;
     }
 
+    button {
+      display: block;
+      margin: 0.75rem auto 0 auto;
+      border-radius: 6px;
+      min-width: 0;
+      font-size: 1rem;
+      background: var(--jh-accent);
+      color: var(--jh-text-primary);
+      padding: 0.4rem 1rem;
+      flex-shrink: 0;
+      border: 1px solid color-mix(in srgb, var(--jh-accent) 70%, white);
+    }
+
+    button:hover {
+      background: color-mix(in srgb, var(--jh-accent) 80%, black);
+      cursor: pointer;
+    }
+
+    button:active {
+      background: color-mix(in srgb, var(--jh-accent) 60%, black);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .skeleton-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -97,6 +124,8 @@ export class JhVideoGrid extends LitElement {
     allowDelete: { type: Boolean },
     loading: { type: Boolean },
     bookmarkedIds: { type: Array },
+    hasMore: { type: Boolean },
+    loadingMore: { type: Boolean },
   };
 
   constructor() {
@@ -106,6 +135,17 @@ export class JhVideoGrid extends LitElement {
     this.allowDelete = false;
     this.loading = false;
     this.bookmarkedIds = [];
+    this.hasMore = false;
+    this.loadingMore = false;
+  }
+
+  #handleLoadMore() {
+    this.dispatchEvent(
+      new CustomEvent("load-more", {
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   render() {
@@ -145,6 +185,13 @@ export class JhVideoGrid extends LitElement {
           `,
         )}
       </div>
+      ${this.hasMore
+        ? html`
+            <button id="load-more-button" type="button" ?disabled=${this.loadingMore} @click=${this.#handleLoadMore}>
+              ${this.loadingMore ? "Loading" : "Load"}
+            </button>
+          `
+        : nothing}
     `;
   }
 }
