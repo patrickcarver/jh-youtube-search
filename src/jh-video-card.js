@@ -6,6 +6,9 @@ export class JhVideoCard extends LitElement {
       display: block;
     }
 
+    .container {
+    }
+
     div {
       display: flex;
       flex-direction: row;
@@ -14,7 +17,7 @@ export class JhVideoCard extends LitElement {
       margin-bottom: 0.5rem;
     }
 
-    thumbnail-holder {
+    #thumbnail-holder {
       flex-shrink: 0;
     }
 
@@ -61,7 +64,7 @@ export class JhVideoCard extends LitElement {
   render() {
     if (!this.video) return nothing;
 
-    return html` <div>
+    return html` <div class=".container">
       <div id="thumbnail-holder">
         <img src="${this.video.thumbnail}" alt="${this.video.title}" loading="lazy" decoding="async" width="320" height="180" />
       </div>
@@ -71,7 +74,9 @@ export class JhVideoCard extends LitElement {
         </a>
       </div>
       <div id="video-description">${this.video.description}</div>
-      <div id="comment-count">${this.video.commentCount ?? "Comments disabled"}</div>
+      <div id="comment-count" aria-label="Comment count">
+        ${this.video.commentCount != null ? `${this.video.commentCount} comments` : "Comments disabled"}
+      </div>
       ${this.allowSave
         ? html`
             <div id="save-to-bookmarks">

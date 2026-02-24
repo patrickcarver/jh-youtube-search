@@ -13,6 +13,8 @@ export class JhSearchView extends LitElement {
       --jh-surface: var(--theme-surface, #0a4b39);
       --jh-text-primary: var(--theme-text-primary, #14181a); /* ebony */
       --jh-accent: var(--theme-accent, #319905); /* green */
+      --jh-skeleton: var(--theme-skeleton, #e0e0e0); /* light gray */
+      --jh-skeleton-highlight: var(--theme-skeleton-highlight, #f0f0f0); /* different light gray */
       font-family:
         system-ui,
         -apple-system,
@@ -31,7 +33,11 @@ export class JhSearchView extends LitElement {
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      /* gap: 0.75rem; */
+    }
+
+    jh-search-input {
+      margin-bottom: 0.75rem;
     }
   `;
 
