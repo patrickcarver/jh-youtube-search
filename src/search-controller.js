@@ -8,10 +8,22 @@ export class SearchController {
   #loading = false;
   #error = null;
   #maxResults = 12;
+  #nextPageToken = null;
+  #query = null;
+  #order = null;
+  #loadingMore = false;
 
   constructor(host) {
     this.#host = host;
     host.addController(this);
+  }
+
+  get loadingMore() {
+    return this.#loadingMore;
+  }
+
+  get hasMore() {
+    return this.#nextPageToken !== null;
   }
 
   get results() {
@@ -30,7 +42,7 @@ export class SearchController {
     return this.#results.find((v) => v.videoId === videoId);
   }
 
-  async #fetchVideos(query, order, maxResults) {
+  async #fetchVideos(query, order, maxResults, pageToken = null) {
     const videoParams = new URLSearchParams({
       part: "snippet",
       q: query,
@@ -40,10 +52,15 @@ export class SearchController {
       key: config.apiKey,
     });
 
-    const videoList = await fetchWithRetry(
-      `${config.apiBaseUrl}/search?${videoParams}`,
-    );
-    return videoList.items;
+    if (pageToken) {
+      videoParams.append("pageToken", pageToken);
+    }
+
+    const videoList = await fetchWithRetry(`${config.apiBaseUrl}/search?${videoParams}`);
+    return {
+      items: videoList.items,
+      nextPageToken: videoList.nextPageToken ?? null,
+    };
   }
 
   async #fetchStats(videoIds) {
@@ -53,31 +70,34 @@ export class SearchController {
       key: config.apiKey,
     });
 
-    const statsList = await fetchWithRetry(
-      `${config.apiBaseUrl}/videos?${statsParams}`,
-    );
+    const statsList = await fetchWithRetry(`${config.apiBaseUrl}/videos?${statsParams}`);
     return statsList.items;
   }
 
   async search(query, order) {
     try {
+      this.#query = query;
+      this.#order = order;
+      this.#nextPageToken = null;
       this.#loading = true;
       this.#error = null;
       this.#host.requestUpdate();
 
-      const videoItems = await this.#fetchVideos(
-        query,
-        order,
+      const { items: videoItems, nextPageToken } = await this.#fetchVideos(
+        this.#query,
+        this.#order,
         this.#maxResults,
+        this.#nextPageToken,
       );
+
+      this.#nextPageToken = nextPageToken;
+
       const videoIds = videoItems.map((item) => item.id.videoId).join(",");
 
       const statsItems = await this.#fetchStats(videoIds);
 
       this.#results = videoItems.map((videoItem) => {
-        const statItem = statsItems.find(
-          (si) => si.id === videoItem.id.videoId,
-        );
+        const statItem = statsItems.find((si) => si.id === videoItem.id.videoId);
         return toVideoModel(videoItem, statItem);
       });
 
@@ -86,6 +106,39 @@ export class SearchController {
     } catch (error) {
       this.#error = error.message;
       this.#loading = false;
+      this.#host.requestUpdate();
+    }
+  }
+
+  async loadMore() {
+    try {
+      this.#loadingMore = true;
+
+      const { items: videoItems, nextPageToken } = await this.#fetchVideos(
+        this.#query,
+        this.#order,
+        this.#maxResults,
+        this.#nextPageToken,
+      );
+
+      this.#nextPageToken = nextPageToken;
+
+      const videoIds = videoItems.map((item) => item.id.videoId).join(",");
+
+      const statsItems = await this.#fetchStats(videoIds);
+
+      const moreResults = videoItems.map((videoItem) => {
+        const statItem = statsItems.find((si) => si.id === videoItem.id.videoId);
+        return toVideoModel(videoItem, statItem);
+      });
+
+      this.#results = this.#results.concat(moreResults);
+
+      this.#loadingMore = false;
+      this.#host.requestUpdate();
+    } catch (error) {
+      this.#error = error.message;
+      this.#loadingMore = false;
       this.#host.requestUpdate();
     }
   }
