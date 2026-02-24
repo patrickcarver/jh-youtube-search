@@ -69,6 +69,10 @@ export class JhSearchView extends LitElement {
     this.#bookmarksController.remove(videoId);
   }
 
+  #handleLoadMore() {
+    this.#searchController.loadMore();
+  }
+
   render() {
     return html`
       <div
@@ -83,9 +87,13 @@ export class JhSearchView extends LitElement {
 
         ${this.#activeTab === "search"
           ? html` <jh-video-grid
+              id="search-grid"
               .videos=${this.#searchController.results}
               allowSave
               ?loading=${this.#searchController.loading}
+              ?hasMore=${this.#searchController.hasMore}
+              ?loadingMore=${this.#searchController.loadingMore}
+              @load-more=${this.#handleLoadMore}
               .bookmarkedIds=${this.#bookmarksController.bookmarkedVideoIds}
               role="tabpanel"
               aria-labelledby="tab-search"
@@ -94,6 +102,7 @@ export class JhSearchView extends LitElement {
           : nothing}
         ${this.#activeTab === "bookmarks"
           ? html` <jh-video-grid
+              id="bookmarks-grid"
               .videos=${this.#bookmarksController.bookmarks}
               allowDelete
               role="tabpanel"
