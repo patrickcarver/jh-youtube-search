@@ -22,12 +22,31 @@ export class JhVideoCard extends LitElement {
       border-radius: 8px 8px 0 0;
     }
 
+    #video-title {
+      padding-left: 2px;
+      margin-left: -2px;
+    }
+
+    #video-title a {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.5;
+      min-height: calc(2 * 1.5em);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      overflow: hidden;
+    }
+
     #video-description {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      line-height: 1.5;
       min-height: calc(3 * 1.5em);
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     a {
