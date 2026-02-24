@@ -154,23 +154,24 @@ export class JhVideoGrid extends LitElement {
     );
   }
 
+  #renderSkeletonCard() {
+    return html`
+      <div class="container skeleton-card">
+        <div class="skeleton-thumbnail"></div>
+        <div class="skeleton-title fixed-height"></div>
+        <div class="skeleton-desc-line line-1 fixed-height"></div>
+        <div class="skeleton-desc-line line-2 fixed-height"></div>
+        <div class="skeleton-desc-line line-3 fixed-height"></div>
+        <div class="skeleton-comment-count fixed-height"></div>
+        <div class="skeleton-button fixed-height"></div>
+      </div>
+    `;
+  }
+
   render() {
     if (this.loading) {
       return html` <div class="skeleton-grid" aria-busy="true" aria-live="polite">
-        ${Array.from(
-          { length: 12 },
-          () => html`
-            <div class="container skeleton-card">
-              <div class="skeleton-thumbnail"></div>
-              <div class="skeleton-title fixed-height"></div>
-              <div class="skeleton-desc-line line-1 fixed-height"></div>
-              <div class="skeleton-desc-line line-2 fixed-height"></div>
-              <div class="skeleton-desc-line line-3 fixed-height"></div>
-              <div class="skeleton-comment-count fixed-height"></div>
-              <div class="skeleton-button fixed-height"></div>
-            </div>
-          `,
-        )}
+        ${Array.from({ length: 12 }, () => this.#renderSkeletonCard())}
       </div>`;
     }
 
@@ -191,6 +192,9 @@ export class JhVideoGrid extends LitElement {
           `,
         )}
       </div>
+      ${this.loadingMore
+        ? html` <div class="skeleton-grid">${Array.from({ length: 3 }, () => this.#renderSkeletonCard())}</div> `
+        : nothing}
       ${this.hasMore
         ? html`
             <button
