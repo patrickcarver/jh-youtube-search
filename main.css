@@ -57,6 +57,13 @@ from https://www.canva.com/colors/color-palettes/after-the-rain/
 }
 
 /* index.html styles  */
+
+#initial-loader {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2em;
+}
+
 header {
     text-align: center;
 }
