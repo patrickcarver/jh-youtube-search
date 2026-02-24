@@ -20,15 +20,60 @@ export class JhVideoGrid extends LitElement {
       padding-left: 1.25rem;
     }
 
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
     .skeleton-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
       width: 100%;
-      height: 120px;
       background: var(--jh-skeleton);
       border-radius: 4px;
       margin-bottom: 0.5rem;
       background: linear-gradient(90deg, var(--jh-skeleton) 25%, var(--jh-skeleton-highlight) 50%, var(--jh-skeleton) 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-card > div {
+      background: var(--jh-skeleton);
+      border-radius: 4px;
+    }
+
+    .skeleton-thumbnail {
+      padding-bottom: 56.25%; /* 9/16 (16:9 aspect ratio) * 100 */
+    }
+
+    .skeleton-title {
+      width: 70%;
+    }
+
+    .skeleton-comment-count {
+      width: 40%;
+    }
+
+    .skeleton-button {
+      width: 80px;
+    }
+
+    .fixed-height {
+      height: 1em;
+    }
+
+    .line-1 {
+      width: 100%;
+    }
+
+    .line-2 {
+      width: 70%;
+    }
+
+    .line-3 {
+      width: 50%;
     }
 
     @keyframes shimmer {
@@ -62,8 +107,21 @@ export class JhVideoGrid extends LitElement {
 
   render() {
     if (this.loading) {
-      return html` <div aria-busy="true" aria-live="polite">
-        ${Array.from({ length: 12 }, () => html`<div class="container skeleton-card"></div>`)}
+      return html` <div class="skeleton-grid" aria-busy="true" aria-live="polite">
+        ${Array.from(
+          { length: 3 },
+          () => html`
+            <div class="container skeleton-card">
+              <div class="skeleton-thumbnail"></div>
+              <div class="skeleton-title fixed-height"></div>
+              <div class="skeleton-desc-line line-1 fixed-height"></div>
+              <div class="skeleton-desc-line line-2 fixed-height"></div>
+              <div class="skeleton-desc-line line-3 fixed-height"></div>
+              <div class="skeleton-comment-count fixed-height"></div>
+              <div class="skeleton-button fixed-height"></div>
+            </div>
+          `,
+        )}
       </div>`;
     }
 
