@@ -25,9 +25,9 @@ export class JhTabs extends LitElement {
     }
 
     button:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--jh-accent);
-      /* clip-path: inset(-4px -4px 0 -4px); */
+      outline: 2px solid var(--jh-text-primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
 
     .active-tab {

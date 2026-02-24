@@ -3,6 +3,7 @@ import { LitElement, html, css, nothing } from "lit";
 export class JhVideoCard extends LitElement {
   static styles = css`
     :host {
+      display: block;
       --jh-card-background: var(--theme-input-background, rgba(255, 255, 255, 0.1));
     }
 

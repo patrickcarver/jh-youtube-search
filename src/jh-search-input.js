@@ -47,9 +47,10 @@ export class JhSearchInput extends LitElement {
     }
 
     #sort-order:focus,
-    #search-text:focus {
-      outline: none;
-      border-color: var(--jh-accent);
+    #search-text:focus,
+    #search-button:focus {
+      outline: 2px solid var(--jh-text-primary);
+      outline-offset: 2px;
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
 
@@ -69,11 +70,6 @@ export class JhSearchInput extends LitElement {
 
     #search-button:active {
       background: color-mix(in srgb, var(--jh-accent) 60%, black);
-    }
-
-    #search-button:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--jh-focus-glow) 30%, transparent);
     }
   `;
 

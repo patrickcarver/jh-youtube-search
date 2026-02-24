@@ -3,6 +3,10 @@ import "./jh-video-card.js";
 
 export class JhVideoGrid extends LitElement {
   static styles = css`
+    :host {
+      overflow: visible;
+    }
+
     #video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -13,7 +17,8 @@ export class JhVideoGrid extends LitElement {
       background: var(--jh-surface);
       border-radius: 0 12px 12px 12px;
       box-sizing: border-box;
-      padding: 0.75rem;
+      padding: 1rem 0.75rem 0.75rem 0.75rem;
+      overflow: visible;
     }
 
     .no-results {
