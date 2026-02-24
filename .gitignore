@@ -1,4 +1,6 @@
 node_modules
-.env
 dist
+.env
+.env.development
+.env.production
 .prettierrc
