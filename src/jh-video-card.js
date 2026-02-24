@@ -160,6 +160,7 @@ export class JhVideoCard extends LitElement {
             <div id="save-to-bookmarks">
               <button
                 ?disabled=${this.isBookmarked}
+                aria-disabled=${this.isBookmarked}
                 @click="${() => this.#handleSave(this.video.videoId)}"
                 type="button"
                 id="save-button"

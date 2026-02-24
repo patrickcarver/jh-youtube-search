@@ -33,7 +33,6 @@ export class JhSearchView extends LitElement {
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      /* gap: 0.75rem; */
     }
 
     jh-search-input {
@@ -89,10 +88,19 @@ export class JhSearchView extends LitElement {
               allowSave
               ?loading=${this.#searchController.loading}
               .bookmarkedIds=${this.#bookmarksController.bookmarkedVideoIds}
+              role="tabpanel"
+              aria-labelledby="tab-search"
+              tabindex="0"
             ></jh-video-grid>`
           : nothing}
         ${this.#activeTab === "bookmarks"
-          ? html` <jh-video-grid .videos=${this.#bookmarksController.bookmarks} allowDelete></jh-video-grid>`
+          ? html` <jh-video-grid
+              .videos=${this.#bookmarksController.bookmarks}
+              allowDelete
+              role="tabpanel"
+              aria-labelledby="tab-bookmarks"
+              tabindex="0"
+            ></jh-video-grid>`
           : nothing}
       </div>
     `;
