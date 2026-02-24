@@ -74,6 +74,7 @@ export class JhSearchView extends LitElement {
   }
 
   render() {
+    console.log("bookmarks", this.#bookmarksController.bookmarks);
     return html`
       <div
         class="container"

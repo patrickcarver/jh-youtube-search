@@ -74,6 +74,28 @@ export class SearchController {
     return statsList.items;
   }
 
+  async #fetchAndMapVideos() {
+    const { items: videoItems, nextPageToken } = await this.#fetchVideos(
+      this.#query,
+      this.#order,
+      this.#maxResults,
+      this.#nextPageToken,
+    );
+
+    this.#nextPageToken = nextPageToken;
+
+    const videoIds = videoItems.map((item) => item.id.videoId).join(",");
+
+    const statsItems = await this.#fetchStats(videoIds);
+
+    const latestResults = videoItems.map((videoItem) => {
+      const statItem = statsItems.find((si) => si.id === videoItem.id.videoId);
+      return toVideoModel(videoItem, statItem);
+    });
+
+    this.#results = this.#results.concat(latestResults);
+  }
+
   async search(query, order) {
     try {
       this.#query = query;
@@ -81,25 +103,10 @@ export class SearchController {
       this.#nextPageToken = null;
       this.#loading = true;
       this.#error = null;
+      this.#results = [];
       this.#host.requestUpdate();
 
-      const { items: videoItems, nextPageToken } = await this.#fetchVideos(
-        this.#query,
-        this.#order,
-        this.#maxResults,
-        this.#nextPageToken,
-      );
-
-      this.#nextPageToken = nextPageToken;
-
-      const videoIds = videoItems.map((item) => item.id.videoId).join(",");
-
-      const statsItems = await this.#fetchStats(videoIds);
-
-      this.#results = videoItems.map((videoItem) => {
-        const statItem = statsItems.find((si) => si.id === videoItem.id.videoId);
-        return toVideoModel(videoItem, statItem);
-      });
+      await this.#fetchAndMapVideos();
 
       this.#loading = false;
       this.#host.requestUpdate();
@@ -115,25 +122,7 @@ export class SearchController {
       this.#loadingMore = true;
       this.#host.requestUpdate();
 
-      const { items: videoItems, nextPageToken } = await this.#fetchVideos(
-        this.#query,
-        this.#order,
-        this.#maxResults,
-        this.#nextPageToken,
-      );
-
-      this.#nextPageToken = nextPageToken;
-
-      const videoIds = videoItems.map((item) => item.id.videoId).join(",");
-
-      const statsItems = await this.#fetchStats(videoIds);
-
-      const moreResults = videoItems.map((videoItem) => {
-        const statItem = statsItems.find((si) => si.id === videoItem.id.videoId);
-        return toVideoModel(videoItem, statItem);
-      });
-
-      this.#results = this.#results.concat(moreResults);
+      await this.#fetchAndMapVideos();
 
       this.#loadingMore = false;
       this.#host.requestUpdate();

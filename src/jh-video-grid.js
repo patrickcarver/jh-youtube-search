@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, nothing } from "lit";
 import "./jh-video-card.js";
 
 export class JhVideoGrid extends LitElement {
