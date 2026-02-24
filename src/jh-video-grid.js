@@ -95,7 +95,6 @@ export class JhVideoGrid extends LitElement {
     videos: { type: Array },
     allowSave: { type: Boolean },
     allowDelete: { type: Boolean },
-    view: { type: String },
     loading: { type: Boolean },
     bookmarkedIds: { type: Array },
   };
@@ -105,7 +104,6 @@ export class JhVideoGrid extends LitElement {
     this.videos = [];
     this.allowSave = false;
     this.allowDelete = false;
-    this.view = "grid";
     this.loading = false;
     this.bookmarkedIds = [];
   }
