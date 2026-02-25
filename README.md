@@ -1,4 +1,4 @@
-### Setup
+# Setup
 
 1. Run `npm install` 
 2. Copy `.env.example` to `.env.development` 
@@ -6,7 +6,7 @@
 4. Run `npx vite` 
 5. Open your browser to `http://localhost:5173`
 
-### Architectural Decision Record (ADR) ###
+# Architectural Decision Record (ADR)
 
 #### Language choice (JavaScript)
 
