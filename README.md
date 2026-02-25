@@ -10,7 +10,7 @@ This assumes you have node and npm already installed and that you have your own 
 
 # AI Log Link
 
-(Click here)[AI-LOG.md]
+[Click here](AI-LOG.md])
 
 # Architectural Decision Record (ADR)
 
