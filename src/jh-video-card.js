@@ -157,7 +157,7 @@ export class JhVideoCard extends LitElement {
 
     return html` <div class="container">
       <div id="thumbnail-holder">
-        <img src="${this.video.thumbnail}" alt="${this.video.title}" loading="lazy" decoding="async" width="320" height="180" />
+        <img src="${this.video.thumbnail}" alt="" loading="lazy" decoding="async" width="320" height="180" />
       </div>
       <div id="video-title">
         <a href="https://www.youtube.com/watch?v=${this.video.videoId}" target="_blank" rel="noopener noreferrer">
@@ -176,6 +176,7 @@ export class JhVideoCard extends LitElement {
                 type="button"
                 id="save-button"
                 name="save-button"
+                aria-label="Save ${this.video.title}"
               >
                 ${this.isBookmarked ? "Saved" : "Save"}
               </button>
@@ -189,6 +190,7 @@ export class JhVideoCard extends LitElement {
               type="button"
               id="delete-button"
               name="delete-button"
+              aria-label="Remove ${this.video.title}"
             >
               Delete
             </button>

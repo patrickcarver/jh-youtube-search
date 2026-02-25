@@ -25,6 +25,18 @@ export class JhVideoGrid extends LitElement {
       padding-left: 1.25rem;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     button {
       display: block;
       margin: 0.75rem auto 0 auto;
@@ -124,6 +136,8 @@ export class JhVideoGrid extends LitElement {
     }
   `;
 
+  #announcement = "";
+
   static properties = {
     videos: { type: Array },
     allowSave: { type: Boolean },
@@ -168,6 +182,22 @@ export class JhVideoGrid extends LitElement {
     `;
   }
 
+  willUpdate(changedProperties) {
+    if (changedProperties.has("loadingMore")) {
+      const wasLoading = changedProperties.get("loadingMore");
+
+      if (!wasLoading && this.loadingMore) {
+        this.#announcement = "";
+        this.requestUpdate();
+      }
+
+      if (wasLoading && !this.loadingMore && this.videos.length > 0) {
+        this.#announcement = `${this.videos.length} results loaded`;
+        this.requestUpdate();
+      }
+    }
+  }
+
   render() {
     if (this.loading) {
       return html` <div class="skeleton-grid" aria-busy="true" aria-live="polite">
@@ -180,6 +210,7 @@ export class JhVideoGrid extends LitElement {
     }
 
     return html`
+      <div class="sr-only" aria-live="polite" aria-atomic="true">${this.#announcement}</div>
       <div id="video-grid" class="container" aria-live="polite" aria-atomic="false" ?aria-busy=${this.loadingMore}>
         ${this.videos.map(
           (video) => html`
