@@ -8,9 +8,11 @@ This assumes you have node and npm already installed and that you have your own 
 4. Run `npx vite` 
 5. Open your browser to `http://localhost:5173`
 
+
 # AI Log Link
 
 [Click here](AI-LOG.md])
+
 
 # Architectural Decision Record (ADR)
 
