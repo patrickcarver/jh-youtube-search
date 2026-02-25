@@ -8,6 +8,10 @@ This assumes you have node and npm already installed and that you have your own 
 4. Run `npx vite` 
 5. Open your browser to `http://localhost:5173`
 
+# AI Log Link
+
+(Click here)[AI-LOG.md]
+
 # Architectural Decision Record (ADR)
 
 ## Language choice (JavaScript)
@@ -27,4 +31,3 @@ SearchController handles keeping track what was searched and how it was ordered,
 BookmarksController delegates persistence between sessions by using the BookmarksRepository class that wraps IndexedDB with a clean, easy to use interface. The controller uses a separate array to store bookmarks for fast response in the interface.
 
 CustomEvents are dispatched with `bubbles: true` and `composed: true` so they can cross Shadow DOM boundaries and be caught at, for example, the `jh-search-view` container level, which then delegates to the appropriate controller. Intermediate components like `jh-video-grid` may also listen for and re-dispatch events, while leaf components like `jh-video-card` are responsible only for dispatching; they have no knowledge of the controllers or the application state above them.
-
