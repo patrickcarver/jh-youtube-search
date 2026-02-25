@@ -1,5 +1,7 @@
 # Setup
 
+This assumes you have node and npm already installed.
+
 1. Run `npm install` 
 2. Copy `.env.example` to `.env.development` 
 3. Add your YouTube Data API v3 key as the value for `VITE_YOUTUBE_API_KEY` in `.env.development`
