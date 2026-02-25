@@ -8,11 +8,11 @@
 
 # Architectural Decision Record (ADR)
 
-#### Language choice (JavaScript)
+## Language choice (JavaScript)
 
 I chose JavaScript since I have more experience with it as compared to TypeScript, plus using JavaScript removes build steps that TypeScript requires. I made sure to use modern ESNext features like private class fields (e.g. #loading), optional chaining (e.g. foo?.bar?.value), nullish coalescing (e.g. value ?? "placeholder"), using async/await for asynchronous operations, and URLSearchParams for building parameters to send to the YouTube API.
 
-#### State Management
+## State Management
 
 There is no global state in this application. I decided to use Reactive Controllers since they are no more than plain JavaScript classes that implement a simple protocol (hostConnected, hostDisconnected) that can easily hook in to Lit components lifecycles and trigger re-renders via requestUpdate.
 
