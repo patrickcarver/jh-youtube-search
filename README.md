@@ -1,6 +1,6 @@
 # Setup
 
-This assumes you have node and npm already installed.
+This assumes you have node and npm already installed and that you have your own YouTube API key.
 
 1. Run `npm install` 
 2. Copy `.env.example` to `.env.development` 
@@ -12,7 +12,7 @@ This assumes you have node and npm already installed.
 
 ## Language choice (JavaScript)
 
-I chose JavaScript since I have more experience with it as compared to TypeScript, plus using JavaScript removes build steps that TypeScript requires. I made sure to use modern ESNext features like private class fields (e.g. #loading), optional chaining (e.g. foo?.bar?.value), nullish coalescing (e.g. value ?? "placeholder"), using async/await for asynchronous operations, and URLSearchParams for building parameters to send to the YouTube API.
+I chose JavaScript since I have more experience with it as compared to TypeScript, plus using JavaScript removes build steps that TypeScript requires. I made sure to use modern ESNext features like private class fields (e.g. `#loading`), optional chaining (e.g. `foo?.bar?.value`), nullish coalescing (e.g. `value ?? "placeholder"`), using async/await for asynchronous operations, and URLSearchParams for building parameters to send to the YouTube API.
 
 ## State Management
 
